@@ -5,7 +5,7 @@ var ball = {
     positionY : 50,
     draw : function(ctx)
     {
-        // ctx.beginPath(); -- need to understand
+        ctx.beginPath();
         ctx.arc(this.positionX,this.positionY,8,0,2*Math.PI)
         ctx.fillStyle = this.color
         ctx.fill()
