@@ -30,7 +30,7 @@ function gameLoop(timestamp)
     let deltatime = timestamp - lastTime
     lastTime = deltatime
     context.clearRect(0, 0, 500, 500);
-    ball.update(context)
+    ball.update(context,collisionHandler.isBallAndPaddleCollide(ball,paddle))
     paddle.draw(context)
     if(deltatime < 9000)
     {
