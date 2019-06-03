@@ -1,0 +1,7 @@
+.gameArea
+{
+    background-color: azure;
+    display: block;
+    margin: 0 auto;
+    border: 2px solid slategrey;
+}
