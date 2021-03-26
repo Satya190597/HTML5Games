@@ -9,13 +9,73 @@
 			}
 		</style>
 	</head>
-	<body>
-		<h1>Snake Game !</h1>
+	<body>		
 		<center>
+			<h1>Snake Game !</h1>
 			<canvas id="playground" width="500" height="500"></canvas>
 		</center>
 		<script>
-				
+
+				const playgroundBackgroundColor = 'lightblue';
+
+				const snakeFillColor = '#3498DB';
+				const strokeColor = '#154360';
+
+
+
+				// Get canvas reference.
+				const canvas = document.getElementById('playground');
+				// Get 2D rendering context.
+				const context = canvas.getContext('2d');
+
+				const canvasCenterX = centerX();
+				const canvasCenterY = centerY();
+
+				const snake = [{x:canvasCenterX,y:canvasCenterY},{x:canvasCenterX-10,y:canvasCenterY},{x:canvasCenterX-20,y:canvasCenterY},{x:canvasCenterX-30,y:canvasCenterY}]
+
+				main();
+
+				function main() {
+					createCanvas();
+					drawSnakeBody();
+				}
+
+				function createCanvas() {
+
+					context.fillStyle = playgroundBackgroundColor;
+
+					// (x-coordinate,y-coordinate,width,height)
+
+					context.fillRect(0,0,canvas.width,canvas.height);
+
+				}
+
+				function drawSnake(x,y) {
+
+					context.fillStyle = snakeFillColor;
+
+					context.strokeStyle = strokeColor;
+
+					context.fillRect(x,y,10,10);
+
+					context.strokeRect(x,y,10,10);
+
+					console.log(x,y);
+				}
+
+				function drawSnakeBody() {
+					snake.forEach(element => drawSnake(element.x,element.y));
+				}
+
+				// Get center X Coordinate.
+				function centerX() {
+					return (canvas.width-10)/2;
+				}
+
+				// Get center Y Coordinate.
+				function centerY() {
+					return (canvas.height-10)/2;
+				}
 		</script>
 	</body>
 </html>
