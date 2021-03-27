@@ -28,19 +28,34 @@
 				// Get 2D rendering context.
 				const context = canvas.getContext('2d');
 
-				const canvasCenterX = centerX();
-				const canvasCenterY = centerY();
 
-				const snake = [{x:canvasCenterX,y:canvasCenterY},{x:canvasCenterX-10,y:canvasCenterY},{x:canvasCenterX-20,y:canvasCenterY},{x:canvasCenterX-30,y:canvasCenterY}]
+
+				var canvasCenterX = centerX();
+				var canvasCenterY = centerY();
+
+				// Velocity.
+				velocityX = 10;
+				velocityY = 0;
+
+				var snake = [{x:canvasCenterX,y:canvasCenterY},{x:canvasCenterX-10,y:canvasCenterY},{x:canvasCenterX-20,y:canvasCenterY},{x:canvasCenterX-30,y:canvasCenterY}]
 
 				main();
 
 				function main() {
+					
+
 					createCanvas();
 					drawSnakeBody();
+					move();
+
+					// Register kye events.
+
+					document.addEventListener("keydown",changeDirection);
 				}
 
 				function createCanvas() {
+
+					context.clearRect(0,0,canvas.width,canvas.height);
 
 					context.fillStyle = playgroundBackgroundColor;
 
@@ -75,6 +90,79 @@
 				// Get center Y Coordinate.
 				function centerY() {
 					return (canvas.height-10)/2;
+				}
+
+				// Move the snack.
+				function snakeMove() {
+
+					canvasCenterX = canvasCenterX + velocityX;
+					canvasCenterY = canvasCenterY + velocityY;
+
+					var tempSnakeBody = [{x:canvasCenterX,y:canvasCenterY},...snake];
+
+
+					tempSnakeBody.pop();
+
+					console.log(tempSnakeBody);
+
+					snake = tempSnakeBody;
+
+					createCanvas();
+					drawSnakeBody();
+
+
+				}
+
+				var i = 0;
+				function move() {
+					
+						
+						setTimeout(function () {
+							snakeMove();
+							console.log(i);
+							i++;
+							if(i < 200) {
+								move();
+							}
+
+						}
+						,100);
+					
+				}
+
+				function changeDirection(event) {
+
+					console.log('KEYSTROKE !');
+
+					const LEFT_KEY = 37;
+					const RIGHT_KEY = 39;
+					const UP_KEY = 38;
+					const DOWN_KEY = 40;
+
+					const keyPressed = event.keyCode;
+
+					if(keyPressed === LEFT_KEY) {
+
+						velocityX = -10;
+						velocityY = 0;
+					}	
+
+					if(keyPressed === RIGHT_KEY) {
+						velocityX = 10;
+						velocityY = 0;
+					}
+
+					if(keyPressed === UP_KEY) {
+						velocityY = -10;
+						velocityX = 0;
+					}
+
+					if(keyPressed === DOWN_KEY) {
+						velocityY = 10;
+						velocityX = 0;
+					}
+
+
 				}
 		</script>
 	</body>
